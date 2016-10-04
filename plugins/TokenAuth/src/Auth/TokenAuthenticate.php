@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth;
+namespace TokenAuth\Auth;
 
 use Cake\Auth\FormAuthenticate;
 use Cake\Network\Request;
