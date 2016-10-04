@@ -15,7 +15,7 @@ This is the plugin for make an authentication done with Tokens.
 You can install the plugin by manually download, or by composer
 
 ```
-composer require falco442/cakephp-token-plugin
+composer require falco442/cakephp-3-token-auth
 ```
 
 ## Preparing  tables
