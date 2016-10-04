@@ -17,7 +17,7 @@ class TokenAuthenticate extends FormAuthenticate
     	$user = $table->findByToken($request->query('token'))->first();
     	if(!$user)
     		return false;
-    	return $user;
+    	return $user->toArray();
     }
 
     public function authenticate(Request $request, Response $response){
