@@ -30,13 +30,17 @@ class TokenAuthenticate extends FormAuthenticate
     	$table = TableRegistry::get($this->_config['userModel']);
     	$entity = $table->get($user[$table->primaryKey()]);
 
-    	$entity->token = sha1(Text::uuid());
-        $entity->token_created = Time::now();
+    	$entity->token = $token = sha1(Text::uuid());
+        $entity->token_created = $token_created = Time::now();
     	unset($entity->{$this->_config['fields']['password']});
 
     	if(!$table->save($entity)){
     		$user = false;
     	}
+        else{
+            $user['token'] = $token;
+            $user['token_created'] = $token_created;
+        }
     	return $user;
     }
 
