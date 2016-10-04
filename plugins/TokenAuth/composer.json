@@ -1,5 +1,5 @@
 {
-    "name": "your-name-here/TokenAuth",
+    "name": "cakephp-3-token-auth",
     "description": "TokenAuth plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
