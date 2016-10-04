@@ -39,16 +39,22 @@ Plugin::load('TokenAuth');
 and put the Authentication object in your `AppController.php`:
 
 ```PHP
-public $components = [
-	'...',
-	'RequestHandler', 					// suggested if you want REST
-	'Auth'=>[
-		'authenticate'=>[
-			'TokenAuth.Token'
-		],
-		'unauthorizedRedirect'=>false	// suggested if you want REST
-	]
-];
+public function initialize(){
+
+	parent::initialize();
+
+	// ...
+
+    $this->loadComponent('Auth',[
+        'authenticate'=>[
+            'TokenAuth.Token'
+        ],
+        'unauthorizedRedirect'=>false,
+        'storage'=>'Memory'
+    ]);
+
+    // ...
+}
 ```
 
 Keep in mind that you can customize the Authentication object with the same parameters you would have used with FormAuthenticate, like `userModel` and `fields`
@@ -73,10 +79,10 @@ Since the token authentication is done mainly for API applications, all you need
 If you want an action to be public, simply use
 
 ```PHP
-$this->Auth->allow(array('action-name'));
+$this->Auth->allow(['action-name']);
 ```
 
-in the `beforeFilter()` method in respective controller.
+in the `initialize()` method in respective controller.
 
 The non-public routes that a client will call shall be of the form
 
@@ -91,7 +97,7 @@ GET /uri.json?token=token-received
 You can reset token by calling the shell
 
 ```
-cd cake-root ./Console/cake TokenAuth.token refresh
+cd cake-root ./bin/cake TokenAuth.token refresh
 ```
 
 **Note**: 
@@ -101,7 +107,7 @@ cd cake-root ./Console/cake TokenAuth.token refresh
 Type in console
 
 ```
-cd cake-root ./Console/cake TokenAuth.token refresh --help
+cd cake-root ./bin/cake TokenAuth.token refresh --help
 ```
 
 to get some help

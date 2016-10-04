@@ -7,6 +7,7 @@ use Cake\Network\Request;
 use Cake\Network\Response;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
+use Cake\I18n\Time;
 
 class TokenAuthenticate extends FormAuthenticate
 {
@@ -30,10 +31,11 @@ class TokenAuthenticate extends FormAuthenticate
     	$entity = $table->get($user[$table->primaryKey()]);
 
     	$entity->token = sha1(Text::uuid());
+        $entity->token_created = Time::now();
     	unset($entity->{$this->_config['fields']['password']});
 
     	if(!$table->save($entity)){
-	    		$user = false;
+    		$user = false;
     	}
     	return $user;
     }
