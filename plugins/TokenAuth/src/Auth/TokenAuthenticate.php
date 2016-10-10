@@ -35,13 +35,20 @@ class TokenAuthenticate extends FormAuthenticate
     	unset($entity->{$this->_config['fields']['password']});
 
     	if(!$table->save($entity)){
-    		$user = false;
+    		return false;
     	}
-        else{
-            $user['token'] = $token;
-            $user['token_created'] = $token_created;
-        }
+        $user['token'] = $token;
+        $user['token_created'] = $token_created;
     	return $user;
+    }
+
+    public function unauthenticated(Request $request, Response $response){
+        $status = 0;
+        $response->statusCode(403);
+        $error = "You're not authorized";
+        $response->body(json_encode(compact('error','status')));
+        $response->type('json');
+        return $response;
     }
 
 }
